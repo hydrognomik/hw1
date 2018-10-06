@@ -1,0 +1,123 @@
+@import "../../constants.scss";
+
+.player {
+  margin-top: 20px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__top {
+    display: grid;
+    column-gap: 16px;
+    grid-template-rows: 26px;
+    grid-template-columns: 53px 1fr;
+  }
+
+  &__albumcover {
+    width: 100%;
+    grid-row: span 2;
+    border-radius: 10px;
+  }
+
+  &__value {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: $baseFontSize;
+    color: rgba(161, 161, 161, 0.84);
+  }
+
+  &__track {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    grid-row: span 1;
+
+    &-length {
+      align-self: flex-end;
+      position: relative;
+
+
+      &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 7px;
+        width: 80%;
+        height: 1px;
+        background: $dustyGray;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 10%;
+        bottom: -2px;
+        width: 6px;
+        height: 20px;
+        background: $alto;
+        border-radius: 4.5px;
+      }
+    }
+  }
+
+  &__controls {
+    display: grid;
+    grid-template-columns: 53px 53px 1fr;
+    column-gap: 20px;
+  }
+
+  &__button {
+    width: 53px;
+    height: 53px;
+    border-radius: 50%;
+    cursor: pointer;
+
+    &:first-child {
+      margin-right: 20px;
+    }
+  }
+
+  &__volume {
+    position: relative;
+
+    &-value {
+      bottom: 20px;
+    }
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: 25px;
+      width: 70%;
+      height: 4px;
+      background: $volumeRange;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 50%;
+      bottom: 19px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: $zambezi;
+    }
+  }
+
+  &__button_prev {
+    background: url("./assets/Prev.svg") center / auto no-repeat;
+  }
+
+  &__button_next {
+    background: url("./assets/Prev.svg") center / auto no-repeat;
+    transform: rotate(180deg);
+  }
+}

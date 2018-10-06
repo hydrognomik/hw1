@@ -1,0 +1,19 @@
+.camera {
+  &__image {
+    user-select: none;
+    touch-action: none;
+    max-height: 250px;
+
+    &-wrapper {
+      max-height: 250px;
+      overflow-x: auto;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6666em;
+    margin-top: 15px;
+  }
+}

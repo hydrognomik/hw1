@@ -1,0 +1,15 @@
+.camera {
+  &__image {
+    height: 100%;
+
+    &-wrapper {
+      margin-top: 20px;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+  }
+
+  &__controls {
+    display: none;
+  }
+}

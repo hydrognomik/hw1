@@ -1,0 +1,9 @@
+@import "../../constants.scss";
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto;
+  grid-auto-flow: dense;
+  gap: 20px;
+}

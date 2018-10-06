@@ -1,0 +1,11 @@
+@import "../../constants";
+
+.header {
+  display: flex;
+  width: 100%;
+  height: $headerHeightDesktop;
+  padding: 0 $desktopPadding;
+  border-bottom: 1px solid #f0f0f0;
+  background: $white;
+  align-items: center;
+}

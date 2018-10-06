@@ -1,0 +1,29 @@
+@import "../../constants";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+.page {
+  font: $baseFontSize $fontFamily;
+  line-height: 1.143;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: $black;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    &-content {
+      flex: 1 0 auto;
+    }
+  }
+}

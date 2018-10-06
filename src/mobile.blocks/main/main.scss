@@ -1,0 +1,10 @@
+@import "../../constants.scss";
+
+.main {
+  padding: 0 $mobilePadding;
+  margin-top: $headerHeightMobile;
+
+  &__header {
+    font-size: $fontSizeL;
+  }
+}

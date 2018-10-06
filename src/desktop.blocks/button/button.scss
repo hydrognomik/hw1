@@ -1,0 +1,30 @@
+@import "../../constants";
+
+.button {
+  display: flex;
+  cursor: pointer;
+  background: #e5e5e5;
+  justify-content: center;
+  align-items: center;
+  height: 54px;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  flex: 0 1 132px;
+
+  &_theme_yellow {
+    background: $yellow;
+  }
+
+  &:hover {
+    box-shadow: 0 2px 6px 0 rgba(255, 225, 225, 0.6);
+  }
+
+  &:active {
+    box-shadow: none;
+  }
+
+  &:not(:last-child) {
+    margin-right: 18px;
+  }
+}

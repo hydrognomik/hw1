@@ -1,0 +1,43 @@
+.card {
+  grid-column: span 1;
+
+  &__heading {
+    padding: 15px;
+  }
+
+  &_type_critical {
+    .card__body {
+      padding: 15px;
+    }
+  }
+
+  &__body {
+    padding: 0 15px 15px;
+  }
+
+  &__title {
+    &-icon {
+      width: 36px;
+      height: 36px;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+
+  &__body,
+  &_size_l &__body {
+    font-size: 1.5em;
+  }
+
+  &_size_s {
+    .card__meta {
+      flex-direction: row;
+    }
+  }
+
+  &__content-cam {
+    padding-top: 83.33%;
+  }
+}
