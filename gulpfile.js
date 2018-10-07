@@ -7,7 +7,7 @@ const flatten = require('gulp-flatten');
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const watch = require('gulp-watch');
-const imagemin = require('gulp-imagemin')
+const imagemin = require('gulp-imagemin');
 
 const params = {
   output: 'public/',

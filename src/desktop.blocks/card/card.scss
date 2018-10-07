@@ -7,6 +7,7 @@
   border-radius: 20px;
   background: $alabaster;
   justify-content: space-between;
+  position: relative;
 
   &:hover {
     box-shadow: 0 2px 6px 0 rgba(197, 186, 186, 0.5);
@@ -20,7 +21,8 @@
       padding: 20px;
     }
 
-    .card__title-icon {
+    .card__title-icon,
+    .card__close {
       filter: brightness(5);
     }
   }
@@ -66,6 +68,7 @@
       overflow: hidden;
       display: flex;
       align-items: center;
+      margin-right: 20px;
     }
   }
 
@@ -108,5 +111,26 @@
     @media screen and (max-width: 550px) {
       justify-content: space-between;
     }
+  }
+
+  &__controls {
+    display: none;
+    height: 16px;
+    right: 20px;
+    position: absolute;
+  }
+
+  &__close {
+    width: 16px;
+    background: url('./assets/cross.svg') center / contain no-repeat;
+
+    top: 20px;
+  }
+
+  &__next {
+    width: 12px;
+    background: url('./assets/next.svg') center / contain no-repeat;
+
+    bottom: 20px;
   }
 }

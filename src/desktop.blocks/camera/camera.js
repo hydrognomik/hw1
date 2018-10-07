@@ -50,6 +50,8 @@ setTimeout(() => {
       }
 
       prevDiff = curDiff;
+
+      document.querySelector('.camera__zoom-value').innerText = Math.floor((curScale - 1) * 100);
     }
   };
 
@@ -64,11 +66,11 @@ setTimeout(() => {
     if (pointerEvs.length < 2) prevDiff = -1;
   };
 
-  el.onpointerdown = onPointerDown;
-  el.onpointermove = onPointerMove;
+  el.addEventListener('pointerdown', onPointerDown);
+  el.addEventListener('pointermove', onPointerMove);
 
-  el.onpointerup = onPointerUp;
-  el.onpointercancel = onPointerUp;
-  el.onpointerout = onPointerUp;
-  el.onpointerleave = onPointerUp;
+  el.addEventListener('pointerup', onPointerUp);
+  el.addEventListener('pointercancel', onPointerUp);
+  el.addEventListener('pointerout', onPointerUp);
+  el.addEventListener('pointerleave', onPointerUp);
 }, 1000);

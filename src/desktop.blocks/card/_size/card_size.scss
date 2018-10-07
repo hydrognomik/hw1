@@ -29,6 +29,14 @@
 
 @media screen and (min-width: 850px) {
   .card {
+
+    &:hover {
+      & > .card__close,
+      & > .card__next {
+        display: block;
+      }
+    }
+
     &_size {
       &_s {
         .card__meta {
