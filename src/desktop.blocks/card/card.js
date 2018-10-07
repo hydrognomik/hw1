@@ -201,64 +201,65 @@ for (let event of JSON.parse(input).events) {
     cardBody.style.display = 'none';
   }
 
-  switch (icon) {
-    case 'stats':
-      graphTemplate.content.querySelector('.card__content-graph')
-        .src = './assets/richdata.svg';
-      const cloneGraph = document.importNode(graphTemplate.content, true);
-      cardBody.appendChild(cloneGraph);
-      break;
+  if (data) {
+    switch (Object.keys(data)[0]) {
+      case 'type':
+        graphTemplate.content.querySelector('.card__content-graph')
+          .src = './assets/richdata.svg';
+        const cloneGraph = document.importNode(graphTemplate.content, true);
+        cardBody.appendChild(cloneGraph);
+        break;
 
-    case 'thermal':
-      thermalTemplate.content.querySelector('.card__content-temp')
-        .innerText += data.temperature + ' C';
-      thermalTemplate.content.querySelector('.card__content-humi')
-        .innerText += data.humidity + '%';
-      const cloneThermal = document.importNode(thermalTemplate.content, true);
-      cardBody.appendChild(cloneThermal);
-      break;
+      case 'temperature':
+        thermalTemplate.content.querySelector('.card__content-temp')
+          .innerText += data.temperature + ' C';
+        thermalTemplate.content.querySelector('.card__content-humi')
+          .innerText += data.humidity + '%';
+        const cloneThermal = document.importNode(thermalTemplate.content, true);
+        cardBody.appendChild(cloneThermal);
+        break;
 
-    case 'music':
-      playerTemplate.content.querySelector('.player__albumcover')
-        .src = data.albumcover;
-      playerTemplate.content.querySelector('.player__artist')
-        .innerText = data.artist;
-      playerTemplate.content.querySelector('.player__track-name')
-        .innerText = data.track.name;
-      playerTemplate.content.querySelector('.player__track-length-value')
-        .innerText = data.track.length;
-      playerTemplate.content.querySelector('.player__volume-value')
-        .innerText += data.volume + '%';
-      const clonePlayer = document.importNode(playerTemplate.content, true);
-      cardBody.appendChild(clonePlayer);
-      break;
+      case 'albumcover':
+        playerTemplate.content.querySelector('.player__albumcover')
+          .src = data.albumcover;
+        playerTemplate.content.querySelector('.player__artist')
+          .innerText = data.artist;
+        playerTemplate.content.querySelector('.player__track-name')
+          .innerText = data.track.name;
+        playerTemplate.content.querySelector('.player__track-length-value')
+          .innerText = data.track.length;
+        playerTemplate.content.querySelector('.player__volume-value')
+          .innerText += data.volume + '%';
+        const clonePlayer = document.importNode(playerTemplate.content, true);
+        cardBody.appendChild(clonePlayer);
+        break;
 
-    case 'fridge':
-      for (let button of data.buttons) {
-        const newButton = document.createElement('div');
-        const className = button === 'Да' ? ['button', 'button_theme_yellow'] : ['button'];
+      case 'buttons':
+        for (let button of data.buttons) {
+          const newButton = document.createElement('div');
+          const className = button === 'Да' ? ['button', 'button_theme_yellow'] : ['button'];
 
-        newButton.innerText = button;
-        newButton.classList.add(...className);
-        buttonsTemplate.content.querySelector('.card__content-buttons')
-          .appendChild(newButton);
-      }
+          newButton.innerText = button;
+          newButton.classList.add(...className);
+          buttonsTemplate.content.querySelector('.card__content-buttons')
+            .appendChild(newButton);
+        }
 
-      const cloneButtons = document.importNode(buttonsTemplate.content, true);
+        const cloneButtons = document.importNode(buttonsTemplate.content, true);
 
-      cardBody.appendChild(cloneButtons);
-      break;
+        cardBody.appendChild(cloneButtons);
+        break;
 
-    case 'cam':
-      camTemplate.content.querySelector('.camera__image')
-        .src = data.image;
-        // .style.backgroundImage = `url(${data.image})`;
-      const cloneCam = document.importNode(camTemplate.content, true);
-      cardBody.appendChild(cloneCam);
-      break;
+      case 'image':
+        camTemplate.content.querySelector('.camera__image')
+          .src = data.image;
+        const cloneCam = document.importNode(camTemplate.content, true);
+        cardBody.appendChild(cloneCam);
+        break;
 
-    default:
-      cardBody.innerText += 'Нет данных';
+      default:
+        cardBody.innerText += 'Нет данных';
+    }
   }
 
   content.appendChild(clone);
