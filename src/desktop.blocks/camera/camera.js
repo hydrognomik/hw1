@@ -2,6 +2,7 @@ setTimeout(() => {
   const pointerEvs = [];
   let prevDiff = -1;
   let curX;
+  let curAngle = 0;
   let curScale = 1;
 
   const el = document.querySelector('.camera__image');
@@ -28,30 +29,44 @@ setTimeout(() => {
       document.querySelector('.camera__image-wrapper').scrollLeft += dx;
     }
 
-    // Zoom
     if (pointerEvs.length === 2) {
-      const curDiff = Math.sqrt(
-        Math.pow((pointerEvs[1].x - pointerEvs[0].x), 2) +
-        Math.pow((pointerEvs[1].y - pointerEvs[0].y), 2)
-      );
+      const dx = pointerEvs[1].x - pointerEvs[0].x;
+      const dy = pointerEvs[1].y - pointerEvs[0].y;
 
-      if (prevDiff > 0) {
-        if (curDiff > prevDiff && curScale < 2) {
-          // Zoom in
-          el.style.transform = `scale(${curScale + 0.05})`;
-          curScale = curScale + 0.05;
-        }
+      // Zoom
+      handlePinch(dx, dy);
 
-        if (curDiff < prevDiff && curScale > 1) {
-          // Zoom out
-          el.style.transform = `scale(${curScale - 0.05})`;
-          curScale = curScale - 0.05;
-        }
+      // Brightness
+      handleRotate(dx, dy);
+    }
+  };
+
+  const handlePinch = (dx, dy) => {
+    const curDiff = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+
+    if (prevDiff > 0) {
+      if (curDiff > prevDiff && curScale < 2) {
+        // Zoom in
+        curScale += 0.03;
       }
 
-      prevDiff = curDiff;
+      if (curDiff < prevDiff && curScale > 1) {
+        // Zoom out
+        curScale -= 0.03;
+      }
+      el.style.transform = `scale(${curScale})`;
+    }
 
-      document.querySelector('.camera__zoom-value').innerText = Math.floor((curScale - 1) * 100);
+    prevDiff = curDiff;
+    document.querySelector('.camera__zoom-value').innerText = Math.floor((curScale - 1) * 100);
+  };
+
+  const handleRotate = (dx, dy) => {
+    curAngle = Math.atan2(dy, dx) * 180 / Math.PI;
+
+    if (Math.abs(curAngle) >= 0 && Math.abs(curAngle) <= 50) {
+      el.style.filter = `brightness(${100 + curAngle}%)`;
+      document.querySelector('.camera__brightness-value').innerText = Math.floor((curAngle));
     }
   };
 
