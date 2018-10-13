@@ -1,0 +1,110 @@
+.stream {
+  width: 100%;
+  object-fit: cover;
+  display: block;
+
+  &_expanded {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
+
+    .button {
+      max-height: 52px;
+    }
+  }
+
+  &__input {
+    margin: 0 0 10px;
+  }
+
+  &__ui {
+    display: flex;
+    align-items: flex-end;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 2;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba($color: #000, $alpha: 0.5);
+    opacity: 0.3;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &_hidden {
+      display: none;
+    }
+  }
+}
+
+.stream-container {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  &:nth-child(1) {
+    grid-column: 1 / span 3;
+    grid-row: 1 / 2;
+
+    .stream {
+      transform-origin: left top;
+    }
+  }
+
+  &:nth-child(2) {
+    grid-column: 4 / span 3;
+    grid-row: 1 / 2;
+
+    .stream {
+      transform-origin: right top;
+    }
+  }
+
+  &:nth-child(3) {
+    grid-column: 1 / span 3;
+    grid-row: 2 / 3;
+
+    .stream {
+      transform-origin: left bottom;
+    }
+  }
+
+  &:nth-child(4) {
+    grid-column: 4 / span 3;
+    grid-row: 2 / 3;
+
+    .stream {
+      transform-origin: right bottom;
+    }
+  }
+}
+
+.brightness-indicator {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+@media screen and (max-width: 550px) {
+  .stream-container:nth-child(n) {
+    grid-column: span 6;
+    grid-row: auto;
+  }
+
+  .stream_expanded {
+    width: 100%;
+  }
+}

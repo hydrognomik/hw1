@@ -7,6 +7,10 @@
     "browser": true,
     "node": true
   },
+  "globals": {
+    "Hls": false,
+    "Uint8Array": false
+  },
   "rules": {
     "newline-after-var": "error",
     "arrow-body-style": ["error", "as-needed"],
