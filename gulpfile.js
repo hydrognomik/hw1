@@ -6,12 +6,13 @@ const csscomb = require('gulp-csscomb');
 const flatten = require('gulp-flatten');
 const gulp = require('gulp');
 const sass = require('gulp-sass');
+const sassGlob = require('gulp-sass-glob');
 const watch = require('gulp-watch');
 const imagemin = require('gulp-imagemin');
 
 const params = {
   output: 'public/',
-  htmlEntry: 'src/index.html',
+  htmlEntry: 'src/client/index.html',
   levels: ['desktop', 'mobile']
 };
 
@@ -27,11 +28,11 @@ gulp.task('server', function () {
   });
 
   gulp.watch(params.levels.map(function (level) {
-    const cssGlob = 'src/' + level + '.blocks/**/*.scss';
+    const cssGlob = 'src/client/' + level + '.blocks/**/*.scss';
     return cssGlob;
   }), ['sass:dev']);
 
-  gulp.watch('src/**/*.js', ['js']);
+  gulp.watch('src/client/**/*.js', ['js']);
 
   gulp.watch(params.htmlEntry, ['html'])
 });
@@ -44,9 +45,9 @@ gulp.task('html', function () {
 
 gulp.task('sass', function () {
   return params.levels.forEach(function (level) {
-    gulp.src('src/' + level + '.blocks/**/*.scss')
+    gulp.src('src/client/' + level + '.blocks/**/*.scss')
+      .pipe(sass({includePaths: ['src/client/']}).on('error', sass.logError))
       .pipe(concat(level + '.style.css'))
-      .pipe(sass({includePaths: ['src']}).on('error', sass.logError))
       .pipe(autoprefixer({
         browsers: ['last 2 versions']
       }))
@@ -56,11 +57,11 @@ gulp.task('sass', function () {
 });
 
 gulp.task('sass:dev', function () {
-  return watch('src/**/*.scss', { ignoreInitial: false }, function () {
+  return watch('src/client/**/*.scss', { ignoreInitial: false }, function () {
     return params.levels.forEach(function (level) {
-      gulp.src('src/' + level + '.blocks/**/*.scss')
+      gulp.src('src/client/' + level + '.blocks/**/*.scss')
+        .pipe(sass({includePaths: ['src/client/']}).on('error', sass.logError))
         .pipe(concat(level + '.style.css'))
-        .pipe(sass({includePaths: ['src']}).on('error', sass.logError))
         .pipe(gulp.dest(params.output))
         .pipe(browserSync.stream());
     })
@@ -68,21 +69,21 @@ gulp.task('sass:dev', function () {
 });
 
 gulp.task('images', function () {
-  gulp.src('src/**/*.{jpg,png,svg}')
+  gulp.src('src/client/**/*.{jpg,png,svg}')
     .pipe(imagemin())
     .pipe(flatten())
     .pipe(gulp.dest(params.output + 'assets/'));
 });
 
 gulp.task('js', function () {
-  gulp.src('src/**/*.js')
+  gulp.src('src/client/**/*.js')
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest(params.output))
     .pipe(browserSync.stream());
 });
 
 gulp.task('csscomb', function () {
-  gulp.src('src/**/*.scss')
+  gulp.src('src/client/**/*.scss')
     .pipe(csscomb())
-    .pipe(gulp.dest('src/'))
+    .pipe(gulp.dest('src/client/'))
 });
