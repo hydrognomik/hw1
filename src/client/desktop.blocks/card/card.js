@@ -183,7 +183,6 @@ for (let event of JSON.parse(input).events) {
   const clone = document.importNode(template.content, true);
   const image = new Image();
   const cardBody = clone.querySelector('.card__body');
-  const cardContent = clone.querySelector('.card__content');
 
   image.src = `./assets/${icon}.svg`;
 
@@ -203,23 +202,27 @@ for (let event of JSON.parse(input).events) {
 
   if (data) {
     switch (Object.keys(data)[0]) {
-      case 'type':
+      case 'type': {
         graphTemplate.content.querySelector('.card__content-graph')
           .src = './assets/richdata.svg';
         const cloneGraph = document.importNode(graphTemplate.content, true);
+
         cardBody.appendChild(cloneGraph);
         break;
+      }
 
-      case 'temperature':
+      case 'temperature': {
         thermalTemplate.content.querySelector('.card__content-temp')
           .innerText += data.temperature + ' C';
         thermalTemplate.content.querySelector('.card__content-humi')
           .innerText += data.humidity + '%';
         const cloneThermal = document.importNode(thermalTemplate.content, true);
+
         cardBody.appendChild(cloneThermal);
         break;
+      }
 
-      case 'albumcover':
+      case 'albumcover': {
         playerTemplate.content.querySelector('.player__albumcover')
           .src = data.albumcover;
         playerTemplate.content.querySelector('.player__artist')
@@ -231,10 +234,12 @@ for (let event of JSON.parse(input).events) {
         playerTemplate.content.querySelector('.player__volume-value')
           .innerText += data.volume + '%';
         const clonePlayer = document.importNode(playerTemplate.content, true);
+
         cardBody.appendChild(clonePlayer);
         break;
+      }
 
-      case 'buttons':
+      case 'buttons': {
         for (let button of data.buttons) {
           const newButton = document.createElement('div');
           const className = button === 'Да' ? ['button', 'button_theme_yellow'] : ['button'];
@@ -249,16 +254,20 @@ for (let event of JSON.parse(input).events) {
 
         cardBody.appendChild(cloneButtons);
         break;
+      }
 
-      case 'image':
+      case 'image': {
         camTemplate.content.querySelector('.camera__image')
           .src = data.image;
         const cloneCam = document.importNode(camTemplate.content, true);
+
         cardBody.appendChild(cloneCam);
         break;
+      }
 
-      default:
+      default: {
         cardBody.innerText += 'Нет данных';
+      }
     }
   }
 

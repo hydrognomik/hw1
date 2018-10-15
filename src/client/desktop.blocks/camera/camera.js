@@ -7,13 +7,13 @@ setTimeout(() => {
 
   const el = document.querySelector('.camera__image');
 
-  const onPointerDown = (event) => {
+  const onPointerDown = event => {
     el.setPointerCapture(event.pointerId);
     curX = event.x;
     pointerEvs.push(event);
   };
 
-  const onPointerMove = (event) => {
+  const onPointerMove = event => {
     for (let i in pointerEvs) {
       if (event.pointerId === pointerEvs[i].pointerId) {
         pointerEvs[i] = event;
@@ -70,7 +70,7 @@ setTimeout(() => {
     }
   };
 
-  const onPointerUp = (event) => {
+  const onPointerUp = event => {
     for (let i in pointerEvs) {
       if (event.pointerId === pointerEvs[i].pointerId) {
         pointerEvs.splice(i, 1);

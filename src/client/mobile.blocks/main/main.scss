@@ -1,8 +1,8 @@
 @import "../../constants.scss";
 
 .main {
-  padding: 0 $mobilePadding;
   margin-top: $headerHeightMobile;
+  padding: 0 $mobilePadding;
 
   &__header {
     font-size: $fontSizeL;

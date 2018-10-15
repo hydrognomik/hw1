@@ -1,9 +1,9 @@
 @import "../../constants.scss";
 
 .main {
+  box-sizing: content-box;
   margin: 0 170px;
   padding: 0 $desktopPadding;
-  box-sizing: content-box;
 
   &__header {
     font-size: $fontSizeXL;

@@ -1,0 +1,15 @@
+{
+  "extends": "eslint:recommended",
+  "parserOptions": {
+    "ecmaVersion": 6
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "newline-after-var": ["error", "always"],
+    "arrow-body-style": ["error", "as-needed"],
+    "arrow-parens": ["error", "as-needed"]
+  }
+}
