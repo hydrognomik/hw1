@@ -1,16 +1,60 @@
 @import "../../constants.scss";
 
 .card {
+  position: relative;
   display: flex;
   overflow: hidden;
   flex-direction: column;
   border-radius: 20px;
   background: $alabaster;
   justify-content: space-between;
-  position: relative;
 
   &:hover {
     box-shadow: 0 2px 6px 0 rgba(197, 186, 186, 0.5);
+  }
+
+  &__title {
+    display: flex;
+    justify-content: flex-start;
+
+    &-icon {
+      display: flex;
+      width: 52px;
+      height: 52px;
+      margin-right: 18px;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    &-text {
+      font-size: 1.3333em;
+      font-weight: 700;
+      display: flex;
+      overflow: hidden;
+      max-height: 58px;
+      margin-right: 20px;
+      align-items: center;
+    }
+  }
+
+  &__body {
+    font-size: 1.1111em;
+    padding: 0 20px 20px;
+    color: $black;
+    border-radius: 20px;
+    background: $alabaster;
+  }
+
+  &__close {
+    top: 20px;
+    width: 16px;
+    background: url("./assets/cross.svg") center / contain no-repeat;
+  }
+
+  &__next {
+    bottom: 20px;
+    width: 12px;
+    background: url("./assets/next.svg") center / contain no-repeat;
   }
 
   &_type_critical {
@@ -30,49 +74,13 @@
   // heading elem
   &__heading {
     display: flex;
+    flex-direction: column;
+    height: 100%;
     padding: 20px;
     flex-wrap: wrap;
-    height: 100%;
-    flex-direction: column;
     justify-content: flex-start;
   }
 
-  // body elem
-  &__body {
-    font-size: 1.1111em;
-    padding: 0 20px 20px;
-    color: $black;
-    border-radius: 20px;
-    background: $alabaster;
-  }
-
-
-  // title elem
-  &__title {
-    display: flex;
-    justify-content: flex-start;
-
-    &-icon {
-      width: 52px;
-      height: 52px;
-      margin-right: 18px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-    }
-
-    &-text {
-      font-size: 1.3333em;
-      font-weight: 700;
-      max-height: 58px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      margin-right: 20px;
-    }
-  }
-
-  // meta elem
   &__meta {
     display: flex;
     width: 100%;
@@ -86,10 +94,10 @@
   }
 
   &__content-thermal {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
     font-size: 0.7777em;
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-between;
 
     .card__content-temp,
     .card__content-humi {
@@ -104,8 +112,8 @@
   }
 
   &__content-buttons {
-    margin-top: 30px;
     display: flex;
+    margin-top: 30px;
     justify-content: flex-start;
 
     @media screen and (max-width: 550px) {
@@ -114,23 +122,9 @@
   }
 
   &__controls {
+    position: absolute;
+    right: 20px;
     display: none;
     height: 16px;
-    right: 20px;
-    position: absolute;
-  }
-
-  &__close {
-    width: 16px;
-    background: url('./assets/cross.svg') center / contain no-repeat;
-
-    top: 20px;
-  }
-
-  &__next {
-    width: 12px;
-    background: url('./assets/next.svg') center / contain no-repeat;
-
-    bottom: 20px;
   }
 }

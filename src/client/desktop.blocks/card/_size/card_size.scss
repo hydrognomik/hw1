@@ -29,7 +29,6 @@
 
 @media screen and (min-width: 850px) {
   .card {
-
     &:hover {
       & > .card__close,
       & > .card__next {
@@ -39,11 +38,10 @@
 
     &_size {
       &_s {
+        grid-column: span 2;
         .card__meta {
           flex-direction: column;
         }
-
-        grid-column: span 2;
       }
 
       &_l {

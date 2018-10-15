@@ -2,11 +2,9 @@ const autoprefixer = require('gulp-autoprefixer');
 const browserSync = require('browser-sync').create();
 const cleanCss = require('gulp-clean-css');
 const concat = require('gulp-concat');
-const csscomb = require('gulp-csscomb');
 const flatten = require('gulp-flatten');
 const gulp = require('gulp');
 const sass = require('gulp-sass');
-const sassGlob = require('gulp-sass-glob');
 const watch = require('gulp-watch');
 const imagemin = require('gulp-imagemin');
 
@@ -29,6 +27,7 @@ gulp.task('server', function () {
 
   gulp.watch(params.levels.map(function (level) {
     const cssGlob = 'src/client/' + level + '.blocks/**/*.scss';
+
     return cssGlob;
   }), ['sass:dev']);
 
@@ -80,10 +79,4 @@ gulp.task('js', function () {
     .pipe(concat('scripts.js'))
     .pipe(gulp.dest(params.output))
     .pipe(browserSync.stream());
-});
-
-gulp.task('csscomb', function () {
-  gulp.src('src/client/**/*.scss')
-    .pipe(csscomb())
-    .pipe(gulp.dest('src/client/'))
 });
