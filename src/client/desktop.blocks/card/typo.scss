@@ -6,16 +6,19 @@
   // Font-size between 320 - 800
   @media (min-width: 320px) {
     $map: (320px: 12px, 800px: 14px);
+
     font-size: linear-interpolation($map);
   }
   // Font-size between 800 - 1366
   @media (min-width: 800px) {
     $map: (800px: 14px, 1366px: 18px);
+
     font-size: linear-interpolation($map);
   }
   // Font-size between 1366 - 1920
   @media (min-width: 1366px) {
     $map: (1366px: 18px, 1920px: 22px);
+
     font-size: linear-interpolation($map);
   }
   // Maximum font-size

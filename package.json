@@ -7,7 +7,7 @@
     "start": "rm -rf public && gulp",
     "build": "rm -rf public && gulp build",
     "lint:css": "stylelint src/client/**/*.scss",
-    "lint:js": "eslint src/**/*.js"
+    "lint:js": "eslint src/**/*.js --fix"
   },
   "author": "",
   "license": "ISC",
@@ -25,7 +25,7 @@
     "gulp-watch": "^5.0.0",
     "husky": "^1.1.2",
     "stylelint": "^9.6.0",
-    "stylelint-config-recommended-scss": "^3.2.0",
+    "stylelint-config-standard": "^18.2.0",
     "stylelint-scss": "^3.3.1"
   },
   "husky": {
