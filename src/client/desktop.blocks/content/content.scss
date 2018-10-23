@@ -1,9 +1,24 @@
 @import "../../constants.scss";
 
 .content {
+  height: 100%;
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   grid-template-rows: auto;
   grid-auto-flow: dense;
   gap: 20px;
+
+  &_theme_observe {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 290px);
+    position: relative;
+    overflow: hidden;
+    gap: 2px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .content_theme_observe {
+    grid-template-rows: min-content;
+  }
 }
