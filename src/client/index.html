@@ -11,8 +11,7 @@
   <title>Яндекс.Дом</title>
 </head>
 <body class="page">
-  <div class="page__wrapper">
-    <div class="page__wrapper-content">
+    <div class="page__wrapper">
       <header class="header">
         <div class="logo header__logo">
           <a href="//yandex.ru" class="link logo__ya"></a>
@@ -33,7 +32,7 @@
               <a href="#" class="link menu__link">Сценарии</a>
             </li>
             <li class="menu__item">
-              <a href="/observation.html" class="link menu__link">Видеонаблюдение</a>
+              <a href="/observe.html" class="link menu__link">Видеонаблюдение</a>
             </li>
           </ul>
         </nav>
@@ -60,7 +59,6 @@
       <a href="#" class="link footer__link">Условия использования</a>
       <a href="https://wiki.yandex.ru/shri-2018-II/homework/Adaptivnaja-vjorstka/.files/license.pdf" target="_blank" class="link footer__link">Авторские права</a>
     </footer>
-  </div>
 
   <template id="cardTemplate">
     <div class="card">
@@ -127,15 +125,15 @@
   <template id="camTemplate">
     <div class="camera">
       <div class="camera__image-wrapper">
-        <img class="camera__image" touch-action="none"/>
+        <img class="camera__image" touch-action="none" draggable="false"/>
       </div>
       <div class="camera__controls">
         <div class="camera__zoom">Приближение: <span class="camera__zoom-value">0</span>%</div>
-        <div class="camera__brightness">Яркость: <span class="camera__brightness-value">0</span>%</div>
+        <div class="camera__brightness">Яркость: <span class="camera__brightness-value">0</span></div>
       </div>
     </div>
   </template>
 
-  <script src="scripts.js"></script>
+  <script src="index.bundle.js"></script>
 </body>
 </html>
