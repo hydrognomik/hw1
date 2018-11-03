@@ -1,3 +1,4 @@
+const path = require('path');
 const autoprefixer = require('gulp-autoprefixer');
 const bs = require('browser-sync').create();
 const cleanCss = require('gulp-clean-css');
@@ -9,6 +10,10 @@ const browserify = require("browserify");
 const source = require('vinyl-source-stream');
 const tsify = require("tsify");
 const imagemin = require('gulp-imagemin');
+const wrap = require('gulp-wrap');
+const declare = require('gulp-declare');
+const merge = require('merge-stream');
+const handlebars = require('gulp-handlebars');
 
 const params = {
   output: 'public/',
@@ -26,7 +31,7 @@ gulp.task('server', () => {
 });
 
 gulp.task('default', ['server', 'dev']);
-gulp.task('dev', ['html', 'sass:dev', 'images', 'js']);
+gulp.task('dev', ['html', 'sass:dev', 'images', 'js', 'templates']);
 gulp.task('build', ['html', 'sass', 'images', 'js']);
 gulp.task('js', ['ts:home', 'ts:observe']);
 
@@ -66,9 +71,9 @@ gulp.task("ts:home", () => browserify({
   basedir: './src/client',
   debug: true,
   entries: [
-    'desktop.blocks/card/card.ts',
     'desktop.blocks/camera/camera.ts',
-    'mobile.blocks/menu/menu.ts'
+    'mobile.blocks/menu/menu.ts',
+    'scripts/index.ts'
   ],
   cache: {},
   packageCache: {}
@@ -95,3 +100,32 @@ gulp.task("ts:observe", () => browserify({
   .pipe(source('observe.bundle.js'))
   .pipe(gulp.dest(params.output))
 );
+
+gulp.task('templates', function() {
+  // Assume all partials start with an underscore
+  // You could also put them in a folder such as source/templates/partials/*.hbs
+  const partials = gulp.src(['src/client/templates/**/_*.hbs'])
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.registerPartial(<%= processPartialName(file.relative) %>, Handlebars.template(<%= contents %>));', {}, {
+      imports: {
+        processPartialName: function(fileName) {
+          // Strip the extension and the underscore
+          // Escape the output with JSON.stringify
+          return JSON.stringify(path.basename(fileName, '.js').substr(1));
+        }
+      }
+    }));
+
+  const templates = gulp.src('src/client/templates/**/[^_]*.hbs')
+    .pipe(handlebars())
+    .pipe(wrap('Handlebars.template(<%= contents %>)'))
+    .pipe(declare({
+      namespace: 'Templates',
+      noRedeclare: true // Avoid duplicate declarations
+    }));
+
+  // Output both the partials and the templates as build/js/templates.js
+  return merge(partials, templates)
+    .pipe(concat('templates.js'))
+    .pipe(gulp.dest(params.output));
+});

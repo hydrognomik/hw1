@@ -1,6 +1,7 @@
 .camera {
   &__image {
     height: 100%;
+    display: block;
 
     &-wrapper {
       overflow: hidden;

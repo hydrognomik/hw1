@@ -9,102 +9,14 @@
   <link rel="stylesheet" href="mobile.style.css" media="screen and (max-width: 550px)">
   <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script src="https://cdn.jsdelivr.net/npm/web-animations-js@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
   <title>Яндекс.Дом</title>
 </head>
 <body class="page">
-  <div class="page__wrapper">
-    <header class="header">
-      <div class="logo header__logo">
-        <a href="//yandex.ru" class="link logo__ya"></a>
-        <a href="#" class="link logo__ya-sub"></a>
-      </div>
-      <nav class="menu">
-        <ul class="menu__list">
-          <li class="menu__item">
-            <a href="/" class="link menu__link">События</a>
-          </li>
-          <li class="menu__item">
-            <a href="#" class="link menu__link">Сводка</a>
-          </li>
-          <li class="menu__item">
-            <a href="#" class="link menu__link">Устройства</a>
-          </li>
-          <li class="menu__item">
-            <a href="#" class="link menu__link">Сценарии</a>
-          </li>
-          <li class="menu__item">
-            <a href="/observe.html" class="link menu__link link_active">Видеонаблюдение</a>
-          </li>
-        </ul>
-      </nav>
-      <div class="menu__icon">
-        <svg width="16" height="14" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-          <defs>
-            <path d="M0 3.326a.995.995 0 0 1 1-.993h14c.552 0 1 .44 1 .993v.681A.995.995 0 0 1 15 5H1c-.552 0-1-.44-1-.993v-.68zM0 8.66a.995.995 0 0 1 1-.993h14c.552 0 1 .44 1 .993v.68a.995.995 0 0 1-1 .993H1c-.552 0-1-.44-1-.993v-.68zm0 5.333A.995.995 0 0 1 1 13h14c.552 0 1 .44 1 .993v.68a.995.995 0 0 1-1 .994H1c-.552 0-1-.44-1-.993v-.681z" id="a"/>
-          </defs>
-          <use fill="#333" xlink:href="#a" transform="translate(0 -2)" fill-rule="evenodd"/>
-        </svg>
-      </div>
-    </header>
-
-    <main class="main">
-      <h1 class="main__header">Видеонаблюдение</h1>
-      <div class="content content_theme_observe">
-
-        <div class="stream-container">
-          <video id="stream-1" class="stream" muted autoplay></video>
-        </div>
-        <div class="stream-container">
-          <video id="stream-2" class="stream" muted autoplay></video>
-        </div>
-        <div class="stream-container">
-          <video id="stream-3" class="stream" muted autoplay></video>
-        </div>
-        <div class="stream-container">
-          <video id="stream-4" class="stream" muted autoplay></video>
-        </div>
-
-        <div class="stream__ui stream__ui_hidden">
-          <div class="stream__controls">
-            <label>
-              🔆
-              <input
-                value="0"
-                min="0"
-                max="100"
-                step="5"
-                type="range"
-                class="stream__input stream-brightness">
-            </label>
-            <label>
-              🔳
-              <input
-                value="0"
-                min="0"
-                max="100"
-                step="5"
-                type="range"
-                class="stream__input stream-contrast">
-            </label>
-            <button class="button all-streams">Все камеры</button>
-          </div>
-          <canvas class="volume-analyser" width="30" height="116"></canvas>
-        </div>
-
-        <div class="brightness-indicator"></div>
-
-      </div>
-    </main>
-  </div>
-
-  <footer class="footer">
-    <a href="#" class="link footer__link">Помощь</a>
-    <a href="#" class="link footer__link">Обратная связь</a>
-    <a href="#" class="link footer__link">Разработчикам</a>
-    <a href="#" class="link footer__link">Условия использования</a>
-    <a href="https://wiki.yandex.ru/shri-2018-II/homework/Adaptivnaja-vjorstka/.files/license.pdf" target="_blank" class="link footer__link">Авторские права</a>
-  </footer>
-
+<script src="templates.js"></script>
+<script>
+  document.querySelector('.page').innerHTML = Templates.App({title: 'Видеонаблюдение'});
+</script>
 <script src="observe.bundle.js"></script>
 </body>
 </html>

@@ -1,0 +1,33 @@
+
+<article class="card {{#if size}}card_size_{{size}}{{/if}} {{#if type}}card_type_{{type}}{{/if}}">
+  <div class="card__heading">
+    <div class="card__title">
+      <div class="card__title-icon">
+        <img src="./assets/{{icon}}.svg" alt="">
+      </div>
+      <h1 class="card__title-text">{{title}}</h1>
+    </div>
+    <div class="card__meta">
+      <div class="card__meta-source">{{source}}</div>
+      <div class="card__meta-time">{{time}}</div>
+    </div>
+  </div>
+  {{#if description}}
+    <div class="card__body">
+      <div class="card__description">{{description}}</div>
+      {{#if data.type}}
+        {{> Graph data}}
+      {{else if data.temperature}}
+        {{> Therm data}}
+      {{else if data.albumcover}}
+        {{> Player data}}
+      {{else if data.buttons}}
+        {{> Buttons data}}
+      {{else if data.image}}
+        {{> Camera data}}
+      {{/if}}
+    </div>
+  {{/if}}
+  <div class="card__controls card__close"></div>
+  <div class="card__controls card__next"></div>
+</article>

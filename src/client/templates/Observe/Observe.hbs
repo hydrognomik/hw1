@@ -1,0 +1,44 @@
+<div class="main__header">{{title}}</div>
+<div id="root" class="content content_theme_{{#if events}}main{{else}}observe{{/if}}">
+  <div class="stream-container">
+    <video id="stream-1" class="stream" muted autoplay></video>
+  </div>
+  <div class="stream-container">
+    <video id="stream-2" class="stream" muted autoplay></video>
+  </div>
+  <div class="stream-container">
+    <video id="stream-3" class="stream" muted autoplay></video>
+  </div>
+  <div class="stream-container">
+    <video id="stream-4" class="stream" muted autoplay></video>
+  </div>
+
+  <div class="stream__ui stream__ui_hidden">
+    <div class="stream__controls">
+      <label>
+        🔆
+        <input
+          value="0"
+          min="0"
+          max="100"
+          step="5"
+          type="range"
+          class="stream__input stream-brightness">
+      </label>
+      <label>
+        🔳
+        <input
+          value="0"
+          min="0"
+          max="100"
+          step="5"
+          type="range"
+          class="stream__input stream-contrast">
+      </label>
+      <button class="button all-streams">Все камеры</button>
+    </div>
+    <canvas class="volume-analyser" width="30" height="116"></canvas>
+  </div>
+
+  <div class="brightness-indicator"></div>
+</div>
