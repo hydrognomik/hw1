@@ -1,0 +1,10 @@
+<div class="main__header">{{title}}</div>
+<div id="root" class="content content_theme_{{#if events}}main{{else}}observe{{/if}}">
+  {{#if page.home}}
+    {{#each events}}
+      {{> Card}}
+    {{/each}}
+  {{else if page.observe}}
+    {{> Observe}}
+  {{/if}}
+</div>
