@@ -1,4 +1,4 @@
-const app = require('./app');
+import app from './app';
 
 app.listen(8000, () => {
   app.set('serverStart', Date.now());

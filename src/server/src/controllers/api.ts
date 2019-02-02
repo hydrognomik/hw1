@@ -1,31 +1,32 @@
-const getEvents = (req, res) => {
+import { Request, Response } from 'express';
+
+interface event {
+  type: string
+}
+
+export const getEvents = (req: Request, res: Response) => {
   res.set('Content-Type', 'application/json');
   res.status(200).send(res.locals.eventsData);
 };
 
-const getEventsByType = (req, res) => {
+export const getEventsByType = (req: Request, res: Response) => {
   const { events } = JSON.parse(res.locals.eventsData);
 
   const types = req.body.type && req.body.type.split(':');
-  const availableTypes = events.reduce((acc, { type }) => {
+  const availableTypes = events.reduce((acc: string[], { type }: event): string[] => {
     if (!acc.includes(type)) {
       acc.push(type);
     }
     return acc;
   }, []);
   const isTypeCorrect = types
-    && types.every(type => availableTypes.includes(type));
+    && types.every((type: string) => availableTypes.includes(type));
 
   if (!isTypeCorrect) {
     res.status(400).send('Incorrect type');
   }
 
-  const filteredEvents = events.filter(({ type }) => types.includes(type));
+  const filteredEvents = events.filter(({ type }: event) => types.includes(type));
 
   res.status(200).json({ events: filteredEvents });
-};
-
-module.exports = {
-  getEvents,
-  getEventsByType
 };
