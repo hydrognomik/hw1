@@ -36,7 +36,7 @@ subscribe(listener: () => void) => () => void
 ## Запуск
 
 ```
-npm i
+npm run deps
 
 npm run start-dev
 ```
@@ -44,7 +44,7 @@ npm run start-dev
 ## Сборка
 
 ```
-npm run duild
+npm run build
 ```
 
 ### Ссылка
