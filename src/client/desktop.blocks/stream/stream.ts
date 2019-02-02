@@ -1,4 +1,4 @@
-import { qs } from '../../utils'
+import { qs } from '../../utils';
 
 declare const Hls: any;
 
@@ -26,7 +26,7 @@ const urls = [
   'http://localhost:9191/master?url=http%3A%2F%2Flocalhost%3A3102%2Fstreams%2Fcat%2Fmaster.m3u8',
   'http://localhost:9191/master?url=http%3A%2F%2Flocalhost%3A3102%2Fstreams%2Fdog%2Fmaster.m3u8',
   'http://localhost:9191/master?url=http%3A%2F%2Flocalhost%3A3102%2Fstreams%2Fsosed%2Fmaster.m3u8',
-  'http://localhost:9191/master?url=http%3A%2F%2Flocalhost%3A3102%2Fstreams%2Fhall%2Fmaster.m3u8'
+  'http://localhost:9191/master?url=http%3A%2F%2Flocalhost%3A3102%2Fstreams%2Fhall%2Fmaster.m3u8',
 ];
 
 videos.forEach((video: HTMLVideoElement, idx: number) => initVideo(video, urls[idx]));
@@ -41,7 +41,7 @@ const brightnessIndicator = qs('.brightness-indicator');
 // @ts-ignore из-за webkitAudioContext
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const analyser = audioCtx.createAnalyser();
-const sources: { [index: string] : MediaElementAudioSourceNode } = {};
+const sources: { [index: string]: MediaElementAudioSourceNode } = {};
 let analyserReqId: number;
 let brightnessReqId: number;
 let stream: HTMLVideoElement | null;
@@ -50,48 +50,48 @@ let zoomInAnim: Animation;
 
 /**
  * Анимирует увеличение видео
- * @param stream DOM нода с видео
+ * @param video DOM нода с видео
  */
-const animateExpansion = (stream: HTMLVideoElement): Animation => {
-  const keyframes: PropertyIndexedKeyframes = <PropertyIndexedKeyframes>{
-    transform: ['scale(0.5)', 'scale(1)']
-  }
-  const options: KeyframeAnimationOptions = <KeyframeAnimationOptions>{
+const animateExpansion = (video: HTMLVideoElement): Animation => {
+  const keyframes = {
+    transform: ['scale(0.5)', 'scale(1)'],
+  };
+  const options: KeyframeAnimationOptions = {
+    delay: 0,
     duration: 100,
+    easing: 'ease',
     iterations: 1,
-    ease: 'ease',
-    delay: 0
-  }
+  };
 
-  return stream.animate(keyframes, options);
-}
+  return video.animate(keyframes as PropertyIndexedKeyframes, options);
+};
 
 /**
  * Навешивает классы развёрнутого видео
- * @param stream  DOM нода с видео
+ * @param video  DOM нода с видео
  */
-const expandStream = (stream: HTMLVideoElement) => {
-  stream.classList.toggle('stream_expanded', true);
+const expandStream = (video: HTMLVideoElement) => {
+  video.classList.toggle('stream_expanded', true);
   streamUi.classList.toggle('stream__ui_hidden', false);
   brightnessIndicator.style.display = 'block';
-  stream.muted = false;
-}
+  video.muted = false;
+};
 
 /**
  * Рисует столбчатую диаграмму анализатора звука
- * @param analyser Нода анализатора звука
+ * @param analyserNode Нода анализатора звука
  */
-const drawVolumeAnalyser = (analyser: AnalyserNode) => {
+const drawVolumeAnalyser = (analyserNode: AnalyserNode) => {
   const HEIGHT = 120;
   const ctx = canvas.getContext('2d');
 
-  analyserReqId = requestAnimationFrame(() => drawVolumeAnalyser(analyser));
+  analyserReqId = requestAnimationFrame(() => drawVolumeAnalyser(analyserNode));
 
-  analyser.fftSize = 32;
-  const bufferLength = analyser.frequencyBinCount;
+  analyserNode.fftSize = 32;
+  const bufferLength = analyserNode.frequencyBinCount;
   const data = new Uint8Array(bufferLength);
 
-  analyser.getByteFrequencyData(data);
+  analyserNode.getByteFrequencyData(data);
 
   const dataArray = Array.prototype.slice.call(data);
   const barHeight = Math.max(...dataArray);
@@ -109,13 +109,15 @@ const drawVolumeAnalyser = (analyser: AnalyserNode) => {
  * Рисует индикатор освещённости
  */
 const drawBrightnessIndicator = () => {
-  const canvas = document.createElement('canvas');
+  const cnvs = document.createElement('canvas');
 
-  canvas.width = 1;
-  canvas.height = 1;
-  const ctx = canvas.getContext('2d');
+  cnvs.width = 1;
+  cnvs.height = 1;
+  const ctx = cnvs.getContext('2d');
 
-  ctx && ctx.drawImage(<CanvasImageSource>stream, 0, 0, 1, 1);
+  if (ctx) {
+    ctx.drawImage(stream as CanvasImageSource, 0, 0, 1, 1);
+  }
   const imageData = ctx && ctx.getImageData(0, 0, 1, 1);
   const data = imageData && imageData.data;
   const [ r, g, b ] = Array.prototype.slice.call(data);
@@ -133,7 +135,7 @@ const onStreamClick = (event: Event) => {
   }
 
   event.preventDefault();
-  stream = <HTMLVideoElement>event.target;
+  stream = event.target as HTMLVideoElement;
 
   expandStream(stream);
   zoomInAnim = animateExpansion(stream);
@@ -151,8 +153,8 @@ const onStreamClick = (event: Event) => {
   drawBrightnessIndicator();
 };
 
-videos.forEach((stream: HTMLVideoElement) => {
-  stream.addEventListener('click', onStreamClick);
+videos.forEach((video: HTMLVideoElement) => {
+  video.addEventListener('click', onStreamClick);
 });
 
 allStreamsButton.addEventListener('click', () => {
@@ -172,13 +174,17 @@ allStreamsButton.addEventListener('click', () => {
 });
 
 brightnessInput.addEventListener('input', (event: Event) => {
-  const target: HTMLInputElement = <HTMLInputElement>event.target;
+  const target: HTMLInputElement = event.target as HTMLInputElement;
 
-  stream && (stream.style.filter = `brightness(${1 + Number(target.value) / 100})`);
+  if (stream) {
+    stream.style.filter = `brightness(${1 + Number(target.value) / 100})`;
+  }
 });
 
 contrastInput.addEventListener('input', (event: Event) => {
-  const target: HTMLInputElement = <HTMLInputElement>event.target;
+  const target: HTMLInputElement = event.target as HTMLInputElement;
 
-  stream && (stream.style.filter = `contrast(${1 + Number(target.value) / 100})`);
+  if (stream) {
+    stream.style.filter = `contrast(${1 + Number(target.value) / 100})`;
+  }
 });

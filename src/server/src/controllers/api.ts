@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
-interface event {
-  type: string
+interface IEvent {
+  type: string;
 }
 
 export const getEvents = (req: Request, res: Response) => {
@@ -13,7 +13,7 @@ export const getEventsByType = (req: Request, res: Response) => {
   const { events } = JSON.parse(res.locals.eventsData);
 
   const types = req.body.type && req.body.type.split(':');
-  const availableTypes = events.reduce((acc: string[], { type }: event): string[] => {
+  const availableTypes = events.reduce((acc: string[], { type }: IEvent): string[] => {
     if (!acc.includes(type)) {
       acc.push(type);
     }
@@ -26,7 +26,7 @@ export const getEventsByType = (req: Request, res: Response) => {
     res.status(400).send('Incorrect type');
   }
 
-  const filteredEvents = events.filter(({ type }: event) => types.includes(type));
+  const filteredEvents = events.filter(({ type }: IEvent) => types.includes(type));
 
   res.status(200).json({ events: filteredEvents });
 };

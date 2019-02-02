@@ -28,12 +28,13 @@ gulp.task('server', () => {
   gulp.watch('src/client/**/*.html', ['html']);
   gulp.watch('src/client/**/*.scss', ['sass:dev']);
   gulp.watch('src/client/**/*.ts', ['js']);
+  gulp.watch('src/client/**/*.hbs', ['templates']);
 });
 
 gulp.task('default', ['server', 'dev']);
 gulp.task('dev', ['html', 'sass:dev', 'images', 'js', 'templates']);
 gulp.task('build', ['html', 'sass', 'images', 'js']);
-gulp.task('js', ['ts:home', 'ts:observe']);
+gulp.task('js', ['ts:home', 'ts:observe', 'ts:index']);
 
 gulp.task('html', () => {
   gulp.src('src/client/**/*.html')
@@ -67,13 +68,13 @@ gulp.task('images', () => {
     .pipe(gulp.dest(params.output + 'assets/'));
 });
 
-gulp.task("ts:home", () => browserify({
+gulp.task("ts:index", () => browserify({
   basedir: './src/client',
   debug: true,
   entries: [
-    'desktop.blocks/camera/camera.ts',
     'mobile.blocks/menu/menu.ts',
-    'scripts/index.ts'
+    'scripts/index.ts',
+    'scripts/router.ts'
   ],
   cache: {},
   packageCache: {}
@@ -83,6 +84,23 @@ gulp.task("ts:home", () => browserify({
   // eslint-disable-next-line no-console
   .on('error', error => console.error(error.toString()))
   .pipe(source('index.bundle.js'))
+  .pipe(gulp.dest(params.output))
+);
+
+gulp.task("ts:home", () => browserify({
+  basedir: './src/client',
+  debug: true,
+  entries: [
+    'desktop.blocks/camera/camera.ts'
+  ],
+  cache: {},
+  packageCache: {}
+})
+  .plugin(tsify)
+  .bundle()
+  // eslint-disable-next-line no-console
+  .on('error', error => console.error(error.toString()))
+  .pipe(source('home.bundle.js'))
   .pipe(gulp.dest(params.output))
 );
 

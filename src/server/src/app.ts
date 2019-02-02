@@ -1,5 +1,6 @@
-import express, { Request, Response } from 'express';
 import cors from 'cors';
+import express, { Request, Response } from 'express';
+
 import { urlencoded } from 'body-parser';
 
 const app = express();
@@ -15,6 +16,6 @@ app.use(urlencoded({ extended: false }));
 app.use('/status', status);
 app.use('/api', api);
 
-app.use(function(req: Request, res: Response) {
+app.use((req: Request, res: Response) => {
   res.status(404).send('<h1>Page not found</h1>');
 });
