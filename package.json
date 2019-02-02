@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "deps": "npm install && npm install --prefix=src/server",
     "start-client": "rm -rf public && gulp",
     "start-server": "cd src/server/ && npm run start-dev",
     "start-dev": "npm-run-all --parallel start-client start-server",
